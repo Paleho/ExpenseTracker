@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+
+import 'heatmap_example.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -19,10 +22,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  Map<int, Color> myColorSet = <int, Color>{
+    0: Colors.green.shade50,
+    1: Colors.green.shade300,
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('Expense Tracker App')),
+      body: Column(
+        children: [
+          Center(child: Text('Expense Tracker App')),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                // reverse: true,
+                child: HeatMap(
+                  // scrollable: true,
+                  colorsets: myColorSet,
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+      // body: HeatMapExample(),
     );
   }
 }
