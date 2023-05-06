@@ -16,35 +16,39 @@ class _HeatMapCardState extends State<HeatMapCard> {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.grey.shade400,
-      child: Column(
+      child: Stack(
         children: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    currentEndDate =
-                        moveTime(initialDate: currentEndDate, months: -3);
-                  });
-                },
-                splashRadius: 15,
-                icon: const Icon(Icons.keyboard_arrow_left_rounded),
-              ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    currentEndDate =
-                        moveTime(initialDate: currentEndDate, months: 3);
-                  });
-                },
-                splashRadius: 15,
-                icon: const Icon(Icons.keyboard_arrow_right_rounded),
-              ),
-            ],
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: WrappedHeatMap(endDate: currentEndDate),
+          ),
+          Positioned(
+            left: 10,
+            top: 2,
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  currentEndDate =
+                      moveTime(initialDate: currentEndDate, months: -3);
+                });
+              },
+              splashRadius: 15,
+              icon: const Icon(Icons.keyboard_arrow_left_rounded),
+            ),
+          ),
+          Positioned(
+            right: 10,
+            top: 2,
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  currentEndDate =
+                      moveTime(initialDate: currentEndDate, months: 3);
+                });
+              },
+              splashRadius: 15,
+              icon: const Icon(Icons.keyboard_arrow_right_rounded),
+            ),
           ),
         ],
       ),
