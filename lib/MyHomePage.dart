@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 
-import 'WrappedHeatMap.dart';
-import 'heatmap_example.dart';
+import 'HeatMapCard.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -19,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: [
           Center(child: Text('Expense Tracker App')),
-          WrappedHeatMap(endDate: DateTime.now()),
+          HeatMapCard(),
         ],
       ),
       // body: HeatMapExample(),
