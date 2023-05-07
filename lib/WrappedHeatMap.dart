@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+
+import 'heatmap_lib/data/heatmap_color_mode.dart';
+import 'heatmap_lib/heatmap.dart';
 
 class WrappedHeatMap extends StatelessWidget {
   final DateTime endDate;
