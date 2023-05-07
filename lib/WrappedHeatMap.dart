@@ -25,7 +25,9 @@ class WrappedHeatMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime startDate = DateTime(endDate.year, endDate.month - 3, endDate.day);
+    // Display 13 weeks
+    DateTime startDate =
+        DateTime(endDate.year, endDate.month, endDate.day - 7 * 13);
 
     return HeatMap(
       datasets: {

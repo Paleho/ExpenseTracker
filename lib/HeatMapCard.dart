@@ -10,7 +10,7 @@ class HeatMapCard extends StatefulWidget {
 }
 
 class _HeatMapCardState extends State<HeatMapCard> {
-  DateTime currentEndDate = DateTime.now();
+  DateTime currentEndDate = getNextSat(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,10 @@ class _HeatMapCardState extends State<HeatMapCard> {
             top: 2,
             child: IconButton(
               onPressed: () {
+                DateTime threeMonthsAgo =
+                    moveTime(initialDate: currentEndDate, days: -7 * 13);
                 setState(() {
-                  currentEndDate =
-                      moveTime(initialDate: currentEndDate, months: -3);
+                  currentEndDate = getNextSat(threeMonthsAgo);
                 });
               },
               splashRadius: 15,
@@ -41,9 +42,10 @@ class _HeatMapCardState extends State<HeatMapCard> {
             top: 2,
             child: IconButton(
               onPressed: () {
+                DateTime threeMonthsAfter =
+                    moveTime(initialDate: currentEndDate, days: 7 * 13);
                 setState(() {
-                  currentEndDate =
-                      moveTime(initialDate: currentEndDate, months: 3);
+                  currentEndDate = getNextSat(threeMonthsAfter);
                 });
               },
               splashRadius: 15,
@@ -63,4 +65,15 @@ DateTime moveTime(
     int days = 0}) {
   return DateTime(initialDate.year + years, initialDate.month + months,
       initialDate.day + days);
+}
+
+DateTime getNextSat(DateTime date) {
+  DateTime nextSaturday;
+  if (date.weekday == 7) {
+    nextSaturday = moveTime(initialDate: date, days: 6);
+  } else {
+    nextSaturday = moveTime(initialDate: date, days: 6 - date.weekday);
+  }
+
+  return nextSaturday;
 }
