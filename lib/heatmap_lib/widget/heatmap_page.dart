@@ -144,7 +144,7 @@ class HeatMapPage extends StatelessWidget {
     return Column(
       children: <Widget>[
         Row(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: MainAxisSize.max,
           children: [
             // Show week labels to left side of heatmap.
             HeatMapWeekText(
