@@ -29,24 +29,27 @@ class WrappedHeatMap extends StatelessWidget {
     DateTime startDate =
         DateTime(endDate.year, endDate.month, endDate.day - 7 * 13);
 
-    return HeatMap(
-      datasets: {
-        DateTime(2023, 5, 1): 1,
-        DateTime(2023, 5, 2): 8,
-        DateTime(2023, 5, 3): 8,
-        DateTime(2023, 5, 4): 10,
-        DateTime(2023, 4, 25): 2,
-        DateTime(2023, 4, 26): 0,
-        DateTime(2023, 4, 20): 5,
-        DateTime(2023, 5, 6): 20,
-        DateTime(2023, 3, 6): 100,
-      },
-      startDate: startDate,
-      endDate: endDate,
-      colorMode: ColorMode.color,
-      showColorTip: false,
-      scrollable: true,
-      colorsets: myColorSet!,
+    return Container(
+      width: 389,
+      child: HeatMap(
+        datasets: {
+          DateTime(2023, 5, 1): 1,
+          DateTime(2023, 5, 2): 8,
+          DateTime(2023, 5, 3): 8,
+          DateTime(2023, 5, 4): 10,
+          DateTime(2023, 4, 25): 2,
+          DateTime(2023, 4, 26): 0,
+          DateTime(2023, 4, 20): 5,
+          DateTime(2023, 5, 6): 20,
+          DateTime(2023, 3, 6): 100,
+        },
+        startDate: startDate,
+        endDate: endDate,
+        colorMode: ColorMode.color,
+        showColorTip: false,
+        scrollable: true,
+        colorsets: myColorSet!,
+      ),
     );
   }
 }

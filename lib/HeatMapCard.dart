@@ -23,7 +23,7 @@ class _HeatMapCardState extends State<HeatMapCard> {
             child: WrappedHeatMap(endDate: currentEndDate),
           ),
           Positioned(
-            left: 10,
+            left: 5,
             top: 2,
             child: IconButton(
               onPressed: () {
@@ -38,7 +38,7 @@ class _HeatMapCardState extends State<HeatMapCard> {
             ),
           ),
           Positioned(
-            right: 10,
+            right: 0,
             top: 2,
             child: IconButton(
               onPressed: () {
