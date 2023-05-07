@@ -44,6 +44,7 @@ class WrappedHeatMap extends StatelessWidget {
       startDate: startDate,
       endDate: endDate,
       colorMode: ColorMode.color,
+      showColorTip: false,
       scrollable: true,
       colorsets: myColorSet!,
     );
