@@ -15,10 +15,67 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final createExpenseAmountController = TextEditingController();
+  final createExpenseNameController = TextEditingController();
+
+  void createExpense() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('New'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: createExpenseAmountController,
+            ),
+            TextField(
+              controller: createExpenseNameController,
+            ),
+          ],
+        ),
+        actions: [
+          // Save
+          ElevatedButton(
+            onPressed: save,
+            child: Text('Save'),
+          ),
+
+          // Cancel
+          ElevatedButton(
+            onPressed: cancel,
+            child: Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void save() {
+    Expense newExpense = Expense(
+      amount: double.parse(createExpenseAmountController.text),
+      name: createExpenseNameController.text,
+      dateTime: DateTime.now(),
+    );
+    var appState = Provider.of<MyAppState>(context, listen: false);
+
+    appState.addExpense(newExpense);
+    clear();
+    Navigator.pop(context);
+  }
+
+  void cancel() {
+    clear();
+    Navigator.pop(context);
+  }
+
+  void clear() {
+    createExpenseAmountController.clear();
+    createExpenseNameController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-
     return Scaffold(
       body: Column(
         children: [
@@ -27,10 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          appState.addExpense(
-              Expense(amount: 5.2, name: 'TestName', dateTime: DateTime.now()));
-        },
+        onPressed: createExpense,
         shape: const RoundedRectangleBorder(
           // borderRadius: BorderRadius.all(Radius.circular(10))),
           borderRadius: BorderRadius.only(
