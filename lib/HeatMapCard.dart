@@ -15,7 +15,7 @@ class _HeatMapCardState extends State<HeatMapCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.grey.shade400,
+      // color: Colors.grey.shade400,
       child: Stack(
         children: [
           Padding(
