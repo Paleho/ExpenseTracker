@@ -25,23 +25,46 @@ class _AddExpenseState extends State<AddExpense> {
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
+              decoration: const InputDecoration(
+                hintText: '13.2',
+                icon: SizedBox(
+                  width: 30,
+                  child: Icon(Icons.euro_symbol_rounded),
+                ),
+              ),
               controller: createExpenseAmountController,
             ),
             TextField(
+              decoration: const InputDecoration(
+                hintText: 'Lunch',
+                icon: Text(
+                  'Tag:',
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+              ),
               controller: createExpenseNameController,
             ),
           ],
         ),
+        actionsAlignment: MainAxisAlignment.spaceEvenly,
         actions: [
           // Save
           ElevatedButton(
             onPressed: save,
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(74, 28),
+              backgroundColor: Color.fromARGB(200, 55, 55, 55),
+            ),
             child: const Text('Save'),
           ),
 
           // Cancel
           ElevatedButton(
             onPressed: cancel,
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(74, 28),
+              backgroundColor: Color.fromARGB(200, 173, 25, 23),
+            ),
             child: const Text('Cancel'),
           ),
         ],
