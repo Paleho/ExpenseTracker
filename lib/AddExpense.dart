@@ -113,6 +113,10 @@ class _AddExpenseState extends State<AddExpense> {
   }
 
   void save() {
+    // Save only if Amount is a double and Tag is not empty
+    if (double.tryParse(createExpenseAmountController.text) == null ||
+        createExpenseNameController.text.isEmpty) return;
+
     Expense newExpense = Expense(
       amount: double.parse(createExpenseAmountController.text),
       name: createExpenseNameController.text,
