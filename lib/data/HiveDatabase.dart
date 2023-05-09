@@ -14,7 +14,7 @@ class HiveDatabase {
       expense.details,
     ];
 
-    _expensesByIdBox.put(expense.dateTime.toString(), expenseFromatted);
+    _expensesByIdBox.put(_dateTimeToString(expense.dateTime), expenseFromatted);
   }
 
   List<Expense> readData() {
@@ -41,5 +41,27 @@ class HiveDatabase {
     }
 
     return allExpenses;
+  }
+
+  void deleteData(Expense expense) {
+    _expensesByIdBox.delete(_dateTimeToString(expense.dateTime));
+  }
+
+  // Use this method instead of dateTime.toString() to avoid precision errors and mismatches
+  // Behavior:
+  //            dateTime.toString() = '2023-05-10 02:05:58.985728'
+  //    _dateTimeToString(dateTime) = '2023-05-10 02:05:58.98'
+  String _dateTimeToString(DateTime input) {
+    String year = input.year.toString();
+    String month = (input.month < 10) ? '0${input.month}' : '${input.month}';
+    String day = (input.day < 10) ? '0${input.day}' : '${input.day}';
+    String hour = (input.hour < 10) ? '0${input.hour}' : '${input.hour}';
+    String minute =
+        (input.minute < 10) ? '0${input.minute}' : '${input.minute}';
+    String second =
+        (input.second < 10) ? '0${input.second}' : '${input.second}';
+    String millisecond = '${input.millisecond}'.substring(0, 2);
+
+    return '$year-$month-$day $hour:$minute:$second.$millisecond';
   }
 }

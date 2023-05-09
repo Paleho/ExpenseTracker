@@ -46,8 +46,13 @@ class MyAppState extends ChangeNotifier {
 
   void addExpense(Expense item) {
     expenses.insert(0, item);
-    notifyListeners();
-
     db.writeData(item);
+    notifyListeners();
+  }
+
+  void deleteExpense(Expense item) {
+    expenses.remove(item);
+    db.deleteData(item);
+    notifyListeners();
   }
 }
