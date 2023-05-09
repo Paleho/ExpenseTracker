@@ -17,7 +17,7 @@ class ExpenseTile extends StatelessWidget {
         onPressed: () {
           appState.deleteExpense(expense);
         },
-        icon: Icon(Icons.delete),
+        icon: const Icon(Icons.delete),
       ),
       title: Text(expense.name),
       subtitle: Text(
