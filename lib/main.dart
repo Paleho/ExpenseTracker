@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'MyHomePage.dart';
 import 'data/Expense.dart';
+import 'data/HiveDatabase.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+
+  var box = await Hive.openBox('expense_database');
+
   runApp(const MyApp());
 }
 
@@ -16,6 +23,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Expense Tracker',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -29,8 +37,17 @@ class MyApp extends StatelessWidget {
 class MyAppState extends ChangeNotifier {
   List<Expense> expenses = [];
 
+  final db = HiveDatabase();
+  void prepareData() {
+    if (db.readData().isNotEmpty) {
+      expenses = db.readData();
+    }
+  }
+
   void addExpense(Expense item) {
     expenses.insert(0, item);
     notifyListeners();
+
+    db.writeData(expenses);
   }
 }
