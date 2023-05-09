@@ -13,8 +13,9 @@ class AddExpense extends StatefulWidget {
 
 class _AddExpenseState extends State<AddExpense> {
   final createExpenseAmountController = TextEditingController();
-
   final createExpenseNameController = TextEditingController();
+  final createExpenseDetailsController = TextEditingController();
+  final createExpenseCategoryController = TextEditingController();
 
   void createExpense() {
     showDialog(
@@ -51,6 +52,17 @@ class _AddExpenseState extends State<AddExpense> {
                   ),
                   controller: createExpenseNameController,
                 ),
+                // Category
+                TextField(
+                  decoration: const InputDecoration(
+                    hintText: 'Food',
+                    icon: Text(
+                      'Category:',
+                      style: TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                  controller: createExpenseCategoryController,
+                ),
                 const SizedBox(height: 5),
                 // More button
                 SizedBox(
@@ -81,7 +93,17 @@ class _AddExpenseState extends State<AddExpense> {
                     ),
                   ),
                 ),
-                if (moreVisible) Text('more details here'),
+                if (moreVisible)
+                  // Details
+                  TextField(
+                    decoration: const InputDecoration(
+                      icon: Text(
+                        'Details:',
+                        style: TextStyle(fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    controller: createExpenseDetailsController,
+                  ),
               ],
             ),
             actionsAlignment: MainAxisAlignment.spaceEvenly,
@@ -121,6 +143,10 @@ class _AddExpenseState extends State<AddExpense> {
       amount: double.parse(createExpenseAmountController.text),
       name: createExpenseNameController.text,
       dateTime: DateTime.now(),
+      details: createExpenseDetailsController.text,
+      category: createExpenseCategoryController.text.isNotEmpty
+          ? createExpenseCategoryController.text
+          : 'Other',
     );
     var appState = Provider.of<MyAppState>(context, listen: false);
 
@@ -137,6 +163,8 @@ class _AddExpenseState extends State<AddExpense> {
   void clear() {
     createExpenseAmountController.clear();
     createExpenseNameController.clear();
+    createExpenseDetailsController.clear();
+    createExpenseCategoryController.clear();
   }
 
   @override
