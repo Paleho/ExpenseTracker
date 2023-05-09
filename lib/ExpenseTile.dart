@@ -9,8 +9,16 @@ class ExpenseTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Text(expense.amount.toString()),
       title: Text(expense.name),
+      subtitle: Text(
+          '${expense.dateTime.day} - ${expense.dateTime.month} - ${expense.dateTime.year}'),
+      trailing: Text(
+        '€ ${expense.amount}',
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
     );
   }
 }
