@@ -3,28 +3,22 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'Expense.dart';
 
 class HiveDatabase {
-  final _expenseBox = Hive.box('expense_database');
+  final _expensesByIdBox = Hive.box('ExpensesById');
 
-  void writeData(List<Expense> expenses) {
-    List<List<dynamic>> allExpensesFormatted = [];
+  void writeData(Expense expense) {
+    List<dynamic> expenseFromatted = [
+      expense.amount.toString(),
+      expense.name,
+      expense.dateTime,
+      expense.category,
+      expense.details,
+    ];
 
-    for (var expense in expenses) {
-      List<dynamic> expenseFromatted = [
-        expense.amount.toString(),
-        expense.name,
-        expense.dateTime,
-        expense.category,
-        expense.details,
-      ];
-
-      allExpensesFormatted.add(expenseFromatted);
-    }
-
-    _expenseBox.put("ALL_EXPENSES", allExpensesFormatted);
+    _expensesByIdBox.put(expense.dateTime.toString(), expenseFromatted);
   }
 
   List<Expense> readData() {
-    List savedExpenses = _expenseBox.get("ALL_EXPENSES") ?? [];
+    List savedExpenses = _expensesByIdBox.values.toList();
 
     List<Expense> allExpenses = [];
 
@@ -43,7 +37,7 @@ class HiveDatabase {
         details: details,
       );
 
-      allExpenses.add(expense);
+      allExpenses.insert(0, expense);
     }
 
     return allExpenses;

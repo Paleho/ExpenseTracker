@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +9,8 @@ import 'data/HiveDatabase.dart';
 void main() async {
   await Hive.initFlutter();
 
-  var box = await Hive.openBox('expense_database');
+  var box1 = await Hive.openBox('ExpensesById');
+  var box2 = await Hive.openBox('ExpensesByDay');
 
   runApp(const MyApp());
 }
@@ -48,6 +48,6 @@ class MyAppState extends ChangeNotifier {
     expenses.insert(0, item);
     notifyListeners();
 
-    db.writeData(expenses);
+    db.writeData(item);
   }
 }
