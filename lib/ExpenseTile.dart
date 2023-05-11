@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 import 'data/Expense.dart';
@@ -12,21 +13,32 @@ class ExpenseTile extends StatelessWidget {
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
 
-    return ListTile(
-      leading: IconButton(
-        onPressed: () {
-          appState.deleteExpense(expense);
-        },
-        icon: const Icon(Icons.delete),
+    return Slidable(
+      endActionPane: ActionPane(
+        extentRatio: 0.2,
+        motion: const StretchMotion(),
+        children: [
+          SlidableAction(
+            onPressed: (context) {
+              appState.deleteExpense(expense);
+            },
+            icon: Icons.delete,
+            backgroundColor: Colors.red,
+            borderRadius: BorderRadius.circular(12),
+            autoClose: true,
+          ),
+        ],
       ),
-      title: Text(expense.name),
-      subtitle: Text(
-          '${expense.dateTime.day} - ${expense.dateTime.month} - ${expense.dateTime.year}'),
-      trailing: Text(
-        '€ ${expense.amount}',
-        style: const TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
+      child: ListTile(
+        title: Text(expense.name),
+        subtitle: Text(
+            '${expense.dateTime.day} - ${expense.dateTime.month} - ${expense.dateTime.year}'),
+        trailing: Text(
+          '€ ${expense.amount}',
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ),
     );
