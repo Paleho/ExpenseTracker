@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'heatmap_lib/data/heatmap_color_mode.dart';
 import 'heatmap_lib/heatmap.dart';
+import 'main.dart';
 
 class WrappedHeatMap extends StatelessWidget {
   final DateTime endDate;
@@ -25,26 +27,36 @@ class WrappedHeatMap extends StatelessWidget {
     };
   }
 
+  Map<DateTime, int>? scaleMap(
+      Map<DateTime, double> inputMap, double saturationValue) {
+    return inputMap.map(
+        (key, value) => MapEntry(key, (value * 11 / saturationValue).round()));
+  }
+
   @override
   Widget build(BuildContext context) {
     // Display 13 weeks
     DateTime startDate =
         DateTime(endDate.year, endDate.month, endDate.day - 7 * 13);
 
+    var appState = context.watch<MyAppState>();
+    var dataSet = scaleMap(appState.dataPerDay, 25);
+
     return Container(
       width: 389,
       child: HeatMap(
-        datasets: {
-          DateTime(2023, 5, 1): 1,
-          DateTime(2023, 5, 2): 8,
-          DateTime(2023, 5, 3): 8,
-          DateTime(2023, 5, 4): 10,
-          DateTime(2023, 4, 25): 2,
-          DateTime(2023, 4, 26): 0,
-          DateTime(2023, 4, 20): 5,
-          DateTime(2023, 5, 6): 20,
-          DateTime(2023, 3, 6): 100,
-        },
+        // datasets: {
+        //   DateTime(2023, 5, 1): 1,
+        //   DateTime(2023, 5, 2): 8,
+        //   DateTime(2023, 5, 3): 8,
+        //   DateTime(2023, 5, 4): 10,
+        //   DateTime(2023, 4, 25): 2,
+        //   DateTime(2023, 4, 26): 0,
+        //   DateTime(2023, 4, 20): 5,
+        //   DateTime(2023, 5, 6): 20,
+        //   DateTime(2023, 3, 6): 100,
+        // },
+        datasets: dataSet,
         startDate: startDate,
         endDate: endDate,
         colorMode: ColorMode.color,

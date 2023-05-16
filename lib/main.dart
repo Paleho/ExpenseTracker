@@ -36,11 +36,13 @@ class MyApp extends StatelessWidget {
 
 class MyAppState extends ChangeNotifier {
   List<Expense> expenses = [];
+  Map<DateTime, double> dataPerDay = {};
 
   final db = HiveDatabase();
   void prepareData() {
     if (db.readData().isNotEmpty) {
       expenses = db.readData();
+      dataPerDay = db.getDataPerDay();
     }
   }
 
