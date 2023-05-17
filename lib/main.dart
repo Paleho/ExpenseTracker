@@ -55,6 +55,7 @@ class MyAppState extends ChangeNotifier {
   void deleteExpense(Expense item) {
     expenses.remove(item);
     db.deleteData(item);
+    dataPerDay = db.getDataPerDay();
     notifyListeners();
   }
 }
